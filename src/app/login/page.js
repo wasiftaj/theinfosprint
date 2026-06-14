@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
@@ -10,18 +9,23 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [debug, setDebug] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    const { signIn } = await import("next-auth/react");
     const res = await signIn("credentials", {
       redirect: false,
       email,
       password,
     });
 
+    console.log('signIn response:', res);
+    setDebug(JSON.stringify(res));
+
     if (res?.ok) {
-      router.push("/");
+      router.push("/dashboard");
     } else {
       setError("Invalid email or password");
     }
@@ -75,6 +79,11 @@ export default function LoginPage() {
 
           {error && (
             <p className="mt-4 text-sm text-red-400 text-center">{error}</p>
+          )}
+
+          {/* Debug output for signIn */}
+          {debug && (
+            <pre className="mt-4 text-xs text-slate-300 bg-slate-800 p-2 rounded">{debug}</pre>
           )}
         </div>
       </div>

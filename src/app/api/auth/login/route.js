@@ -1,6 +1,7 @@
 import { connectDB } from "@/lib/db";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
@@ -10,37 +11,19 @@ export async function POST(req) {
 
     const user = await User.findOne({ email });
 
-    if (!user) {
-      return Response.json(
-        { success: false, message: "User not found" },
-        { status: 404 }
-      );
-    }
+if (!user || !user.password) {
+  return NextResponse.json({ success: false, message: "User not found or invalid data" }, { status: 404 });
+}
 
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return Response.json(
-        { success: false, message: "Invalid credentials" },
-        { status: 401 }
-      );
+      return NextResponse.json({ success: false, message: "Invalid credentials" }, { status: 401 });
     }
 
-    return Response.json({
-      success: true,
-      message: "Login successful",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-    });
+    return NextResponse.json({ success: true, message: "Login successful", user: { id: user._id.toString(), name: user.name, email: user.email, role: user.role } });
 
   } catch (error) {
-    return Response.json(
-      { success: false, message: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, message: error.message }, { status: 500 });
   }
 }

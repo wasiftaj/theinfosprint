@@ -1,9 +1,9 @@
 import { connectDB } from "@/lib/db";
-
+import { NextResponse } from "next/server";
 export async function GET() {
   await connectDB();
 
-  return Response.json({
+  return NextResponse.json({
     success: true,
     message: "MongoDB Connected!",
   });
