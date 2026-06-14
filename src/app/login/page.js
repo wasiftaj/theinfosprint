@@ -32,59 +32,90 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4">
-      <div className="w-full max-w-md">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white">Welcome back</h2>
-            <p className="text-slate-400 mt-2 text-sm">
-              Sign in to continue to your blog
-            </p>
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(8,145,178,0.18),transparent_30%),linear-gradient(to_bottom,#020617,#0f172a)] px-4 py-10">
+      <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-6xl items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="space-y-6 text-white">
+          <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-cyan-200 backdrop-blur">
+            <span className="h-2 w-2 rounded-full bg-cyan-400" />
+            TheInfoSprint CMS
           </div>
+          <h1 className="max-w-xl text-4xl font-black leading-tight tracking-tight md:text-6xl">
+            Sign in to manage posts, drafts, and publishing.
+          </h1>
+          <p className="max-w-xl text-lg leading-8 text-slate-300">
+            Use your editor or admin credentials to open the dashboard and start
+            creating content.
+          </p>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+              <p className="text-sm text-slate-300">Access</p>
+              <p className="mt-1 text-lg font-semibold">Dashboard</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+              <p className="text-sm text-slate-300">Flow</p>
+              <p className="mt-1 text-lg font-semibold">Login → Create</p>
+            </div>
+            <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+              <p className="text-sm text-slate-300">Mode</p>
+              <p className="mt-1 text-lg font-semibold">Protected CMS</p>
+            </div>
+          </div>
+        </div>
 
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1.5">
-                Email
-              </label>
-              <input
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"
-              />
+        <div className="w-full">
+          <div className="rounded-3xl border border-white/10 bg-white/95 p-8 shadow-2xl shadow-slate-950/40">
+            <div className="mb-8 text-center">
+              <h2 className="text-3xl font-bold text-slate-950">Welcome back</h2>
+              <p className="mt-2 text-sm text-slate-500">
+                Sign in to continue to your blog
+              </p>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-slate-300 mb-1.5">
-                Password
-              </label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition"
-              />
-            </div>
+            <form onSubmit={handleLogin} className="space-y-5">
+              <div>
+                <label className="mb-1.5 block text-sm font-medium text-slate-700">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-950 placeholder-slate-400 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100"
+                />
+              </div>
 
-            <button
-              type="submit"
-              className="w-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold py-2.5 rounded-lg transition shadow-lg shadow-cyan-500/20"
-            >
-              Login
-            </button>
-          </form>
+              <div>
+                <label className="mb-1.5 block text-sm font-medium text-slate-700">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-950 placeholder-slate-400 outline-none transition focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100"
+                />
+              </div>
 
-          {error && (
-            <p className="mt-4 text-sm text-red-400 text-center">{error}</p>
-          )}
+              <button
+                type="submit"
+                className="w-full rounded-xl bg-slate-950 py-3 font-semibold text-white transition hover:bg-slate-800"
+              >
+                Login
+              </button>
+            </form>
 
-          {/* Debug output for signIn */}
-          {debug && (
-            <pre className="mt-4 text-xs text-slate-300 bg-slate-800 p-2 rounded">{debug}</pre>
-          )}
+            {error && (
+              <p className="mt-4 text-sm text-red-500 text-center">{error}</p>
+            )}
+
+            {debug && (
+              <pre className="mt-4 rounded-xl bg-slate-100 p-3 text-xs text-slate-600">
+                {debug}
+              </pre>
+            )}
+          </div>
         </div>
       </div>
     </div>

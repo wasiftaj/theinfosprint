@@ -19,6 +19,12 @@ export function createExcerpt(content, fallback = "") {
     .slice(0, 180);
 }
 
+export function getPreviewImage(content) {
+  const blocks = Array.isArray(content?.blocks) ? content.blocks : [];
+  const imageBlock = blocks.find((block) => block?.type === "image");
+  return imageBlock?.data?.file?.url || imageBlock?.data?.url || "";
+}
+
 export function normalizeTags(tags) {
   if (Array.isArray(tags)) {
     return tags.map((tag) => tag.trim()).filter(Boolean);

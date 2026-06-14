@@ -75,32 +75,32 @@ export default function PostForm({ mode = "create", post }) {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid gap-4 md:grid-cols-2">
         <label className="space-y-2 md:col-span-2">
-          <span className="text-sm font-medium text-slate-700">Title</span>
+          <span className="text-sm font-semibold text-slate-700">Title</span>
           <input
             value={title}
             onChange={handleTitleChange}
             placeholder="How I Built My First Blog CMS"
-            className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100"
+            className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100"
             required
           />
         </label>
 
         <label className="space-y-2">
-          <span className="text-sm font-medium text-slate-700">Slug</span>
+          <span className="text-sm font-semibold text-slate-700">Slug</span>
           <input
             value={slug}
             onChange={(event) => setSlug(createSlug(event.target.value))}
             placeholder="how-i-built-my-first-blog-cms"
-            className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100"
+            className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100"
           />
         </label>
 
         <label className="space-y-2">
-          <span className="text-sm font-medium text-slate-700">Status</span>
+          <span className="text-sm font-semibold text-slate-700">Status</span>
           <select
             value={status}
             onChange={(event) => setStatus(event.target.value)}
-            className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100"
+            className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100"
           >
             <option value="published">Published</option>
             <option value="draft">Draft</option>
@@ -108,47 +108,47 @@ export default function PostForm({ mode = "create", post }) {
         </label>
 
         <label className="space-y-2">
-          <span className="text-sm font-medium text-slate-700">Category</span>
+          <span className="text-sm font-semibold text-slate-700">Category</span>
           <input
             value={category}
             onChange={(event) => setCategory(event.target.value)}
-            className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100"
+            className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100"
           />
         </label>
 
         <label className="space-y-2">
-          <span className="text-sm font-medium text-slate-700">Tags</span>
+          <span className="text-sm font-semibold text-slate-700">Tags</span>
           <input
             value={tags}
             onChange={(event) => setTags(event.target.value)}
             placeholder="nextjs, cms, mongodb"
-            className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100"
+            className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100"
           />
         </label>
 
         <label className="space-y-2 md:col-span-2">
-          <span className="text-sm font-medium text-slate-700">Featured Image URL</span>
+          <span className="text-sm font-semibold text-slate-700">Featured Image URL</span>
           <input
             value={featuredImage}
             onChange={(event) => setFeaturedImage(event.target.value)}
             placeholder="https://..."
-            className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100"
+            className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100"
           />
         </label>
 
         <label className="space-y-2 md:col-span-2">
-          <span className="text-sm font-medium text-slate-700">Excerpt</span>
+          <span className="text-sm font-semibold text-slate-700">Excerpt</span>
           <textarea
             value={excerpt}
             onChange={(event) => setExcerpt(event.target.value)}
             rows={3}
-            className="w-full rounded-lg border border-slate-300 px-4 py-3 text-slate-950 outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-100"
+            className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-slate-950 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100"
           />
         </label>
       </div>
 
       <div className="space-y-2">
-        <span className="text-sm font-medium text-slate-700">Content</span>
+        <span className="text-sm font-semibold text-slate-700">Content</span>
         <Editor data={content} onChange={setContent} />
       </div>
 
@@ -156,12 +156,12 @@ export default function PostForm({ mode = "create", post }) {
         <button
           type="submit"
           disabled={isSaving}
-          className="rounded-lg bg-cyan-600 px-5 py-3 font-semibold text-white transition hover:bg-cyan-500 disabled:cursor-not-allowed disabled:bg-slate-400"
+          className="rounded-2xl bg-slate-950 px-5 py-3 font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:bg-slate-400"
         >
           {isSaving ? "Saving..." : mode === "edit" ? "Update Post" : "Save Post"}
         </button>
 
-        {message && <p className="text-sm text-slate-600">{message}</p>}
+        {message && <p className="text-sm font-medium text-slate-600">{message}</p>}
       </div>
     </form>
   );

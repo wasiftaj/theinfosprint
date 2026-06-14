@@ -4,11 +4,12 @@ import { connectDB } from "@/lib/db";
 import Post from "@/models/Post";
 import "@/models/User";
 import PostContent from "@/components/PostContent";
+import { getPreviewImage } from "@/lib/posts";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }) {
-  const { slug } = params;
+  const { slug } = await Promise.resolve(params);
   await connectDB();
 
   const post = await Post.findOne({ slug, status: "published" }).lean();
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function BlogPostPage({ params }) {
-  const { slug } = params;
+  const { slug } = await Promise.resolve(params);
   await connectDB();
 
   const post = await Post.findOne({ slug, status: "published" })
@@ -38,6 +39,7 @@ export default async function BlogPostPage({ params }) {
   }
 
   await Post.updateOne({ _id: post._id }, { $inc: { views: 1 } });
+  const heroImage = post.featuredImage || getPreviewImage(post.content);
 
   return (
     <main className="min-h-screen bg-white">
@@ -47,6 +49,14 @@ export default async function BlogPostPage({ params }) {
         </Link>
 
         <header className="mt-8 space-y-5 border-b border-slate-200 pb-8">
+          {heroImage && (
+            <img
+              src={heroImage}
+              alt={post.title}
+              className="h-[420px] w-full rounded-3xl object-cover shadow-lg"
+            />
+          )}
+
           <div className="flex flex-wrap gap-2 text-sm text-slate-500">
             <span>{post.category || "general"}</span>
             <span>/</span>
@@ -63,17 +73,10 @@ export default async function BlogPostPage({ params }) {
             <p className="text-xl leading-8 text-slate-600">{post.excerpt}</p>
           )}
 
-          {post.featuredImage && (
-            <img
-              src={post.featuredImage}
-              alt={post.title}
-              className="w-full rounded-lg border border-slate-200 object-cover"
-            />
-          )}
         </header>
 
         <div className="pt-8">
-          <PostContent content={post.content} />
+          <PostContent content={post.content} excludeImageUrl={heroImage} />
         </div>
       </article>
     </main>

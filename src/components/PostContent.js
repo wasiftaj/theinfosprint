@@ -2,15 +2,19 @@ function renderInlineText(text = "") {
   return text.replace(/<[^>]*>/g, "");
 }
 
-export default function PostContent({ content }) {
+export default function PostContent({ content, excludeImageUrl = "" }) {
   const blocks = Array.isArray(content?.blocks) ? content.blocks : [];
 
   if (blocks.length === 0) {
-    return <p className="text-slate-500">No content yet.</p>;
+    return (
+      <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-6 text-slate-500">
+        No content yet.
+      </div>
+    );
   }
 
   return (
-    <div className="space-y-5 text-slate-800">
+    <div className="space-y-6 rounded-3xl border border-slate-200 bg-white p-6 text-slate-800 shadow-sm md:p-8">
       {blocks.map((block) => {
         const key = block.id || `${block.type}-${Math.random()}`;
 
@@ -63,14 +67,14 @@ export default function PostContent({ content }) {
 
         if (block.type === "image") {
           const url = block.data?.file?.url || block.data?.url;
-          if (!url) return null;
+          if (!url || url === excludeImageUrl) return null;
 
           return (
             <figure key={key} className="space-y-2">
               <img
                 src={url}
                 alt={block.data?.caption || "Post image"}
-                className="w-full rounded-lg border border-slate-200 object-cover"
+                className="w-full rounded-2xl border border-slate-200 object-cover shadow-sm"
               />
               {block.data?.caption && (
                 <figcaption className="text-center text-sm text-slate-500">
@@ -85,7 +89,7 @@ export default function PostContent({ content }) {
           return (
             <blockquote
               key={key}
-              className="border-l-4 border-cyan-500 pl-4 text-lg italic text-slate-700"
+              className="rounded-2xl border border-cyan-100 bg-cyan-50 px-5 py-4 text-lg italic text-slate-700"
             >
               {renderInlineText(block.data?.text)}
             </blockquote>
@@ -96,7 +100,7 @@ export default function PostContent({ content }) {
           return (
             <pre
               key={key}
-              className="overflow-x-auto rounded-lg bg-slate-950 p-4 text-sm text-slate-50"
+              className="overflow-x-auto rounded-2xl bg-slate-950 p-4 text-sm text-slate-50 shadow-lg"
             >
               <code>{block.data?.code}</code>
             </pre>
@@ -104,7 +108,7 @@ export default function PostContent({ content }) {
         }
 
         return (
-          <p key={key} className="text-lg leading-8">
+          <p key={key} className="text-lg leading-8 text-slate-700">
             {renderInlineText(block.data?.text)}
           </p>
         );
